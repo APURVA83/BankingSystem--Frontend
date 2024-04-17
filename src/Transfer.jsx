@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
+
 function Transfer() {
+
+  console.log(`react app`, process.env.REACT_APP_API_URL)
   const [DataOne, setAllUserData] = useState([]);
   const [DataTwo, setSingleUserData] = useState([]);
   const [selectedRole, setSelectedRole] = useState('');
@@ -13,7 +16,7 @@ function Transfer() {
   useEffect(() => {
     const fetchAllUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/');
+        const response = await axios.get(process.env.REACT_APP_API_URL);
         setAllUserData(response.data);
       } catch (error) {
         console.error('Error fetching data1:', error);
@@ -22,7 +25,7 @@ function Transfer() {
 
     const fetchSingleUser = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/read/' + id);
+        const response = await axios.get(process.env.REACT_APP_API_URL +  'read/' + id);
         setSingleUserData(response.data);
       } catch (error) {
         console.error('Error fetching data2:', error);
@@ -44,7 +47,7 @@ function Transfer() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/transfers', {
+      const response = await axios.post(process.env.REACT_APP_API_URL  + 'transfers', {
         sender_id: DataTwo[0]?.id,
         receiver_id: selectedRole, // Assuming selectedRole is the receiver's ID
         amount: amount,

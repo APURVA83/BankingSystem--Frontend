@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 import { FaExchangeAlt } from 'react-icons/fa'; // Importing an exchange icon from react-icons
 import './styles.css'
 
+
+
 function Home() {
+  console.log(process.env.REACT_APP_API_URL)
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/')
+    axios.get(process.env.REACT_APP_API_URL)
       .then((result) => setData(result.data))
       .catch((err) => console.log(err));
   }, []);
